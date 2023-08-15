@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import PreviewDetails from "./PreviewDetails";
 import AddDetailsForm from "./AddDetailsForm";
 
-function AddDetails({ setStep, image, name, setName, description, setDescription, storeNFT }: any) {
+function AddDetails({ setStep, image, name, setName, description, setDescription, storeNFT, connect, mc}: any) {
   const [isPreview, setIsPreview] = useState(false);
 
   const saveFile = async () => {
@@ -58,13 +58,21 @@ function AddDetails({ setStep, image, name, setName, description, setDescription
           >
             Next
           </button>
+          : mc
+            ? <button
+                className="px-4 py-2 border border-[#E1E1E1
+    ] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 w-[160px] text-[#4B4B4B]"
+                onClick={() => saveFile()}
+              >
+                Mint
+              </button>
           : <button
-            className="px-4 py-2 border border-[#E1E1E1
-] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 w-[160px] text-[#4B4B4B]"
-            onClick={() => saveFile()}
-          >
-            Mint
-          </button>}
+              className="px-4 py-2 border border-[#E1E1E1
+    ] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 w-[160px] text-[#4B4B4B]"
+              onClick={() => connect()}
+            >
+              Connect
+            </button>}
       </div>
     </div>
   );
