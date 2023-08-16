@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+import { MetaMaskProvider } from '@metamask/sdk-react';
 import App from './App.jsx';
 import './index.css';
 
@@ -28,7 +29,19 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <MetaMaskProvider debug sdkOptions={{
+        logging:{
+            developerMode: false,
+          },
+          checkInstallationImmediately: false, // This will automatically connect to MetaMask on page load
+          dappMetadata: {
+            name: "Music Pulse",
+            url: window.location.host,
+          }
+      }}>
+        <App />
+      </MetaMaskProvider>
+      
     </ChakraProvider>
   </React.StrictMode>,
 );
