@@ -1,4 +1,4 @@
-export const EVM_ADDRESS = "0xf928DE5102BDae9d9930ccED957ad5a2699cceD8";
+export const EVM_ADDRESS = "0x63E4f6643B92b16b90497c50cAB53523dcB4D126";
 export const EVM_ABI = [
   {
     "inputs": [],
@@ -189,6 +189,26 @@ export const EVM_ABI = [
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "musicURLList",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -398,6 +418,20 @@ export const EVM_ABI = [
     ],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getMusicURLList",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   }
 ];
 export const Registry_ADDRESS = "0xe7fAD83f64179695Da44b0cE18A24F1cBB890323";

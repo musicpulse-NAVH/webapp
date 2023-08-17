@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, SimpleGrid, Center, IconButton, Stack, Box, Flex, Heading, Spacer, Input, Image, Text } from '@chakra-ui/react';
 import Sidebar from "../components/layout/Sidebar";
 import { HiOutlineFilter, HiChevronLeft, HiChevronRight } from "react-icons/hi";
@@ -32,6 +33,8 @@ const DATA = [
 ]
 
 function Fans() {
+  const change = useNavigate();
+
   return (
     <Flex>
       <Sidebar />
@@ -70,7 +73,7 @@ function Fans() {
 
         <SimpleGrid columns={3} spacing={10}>
           {DATA.map(d => (
-            <Flex mt='3' key={d.id}>
+            <Flex mt='3' key={d.id} onClick={() => change("/musicdetail")}>
               <Image
                 width="100px"
                 height="100px"
