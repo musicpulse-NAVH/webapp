@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { Text } from "@chakra-ui/react";
 import Disc from "../../../public/assets/disc.png";
 import cover from "../../../public/assets/cover.png";
+import Success from "../../../public/assets/success.png";
 import { IoIosArrowBack } from "react-icons/io";
 
-function Pricing({ setStep, image, name, description}: any) {
+function Pricing({ setStep, image, name, description, deployContract}: any) {
+  const [tx, setTx] = useState(null);
+
   const createAccessToken = async () => {
-    //setStep(4);
+   const result = await deployContract();
+   if (result) setTx(result);
   };
 
   return (
@@ -48,29 +52,49 @@ function Pricing({ setStep, image, name, description}: any) {
           </div>
         </div>
 
-        <div className="w-full px-12">
-          <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px]">Pricing</h3>
-          <div className="mt-3 px-4 py-2 border border-[#E1E1E1] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 mr-8 text-[#4B4B4B]">
-            <p className="text-[15px] text-[#1F1F1F] leading-[24px]">
-              Full Access - 0.03ETH
-            </p>
+        {!tx
+          ? <div className="w-full px-12">
+              <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px]">Pricing</h3>
+              <div className="mt-3 px-4 py-2 border border-[#E1E1E1] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 mr-8 text-[#4B4B4B]">
+                <p className="text-[15px] text-[#1F1F1F] leading-[24px]">
+                  Full Access - 0.03ETH
+                </p>
+              </div>
+            </div>
+          : <div className="w-full px-12">
+              <img
+                src={Success}
+                alt="icon image"
+                className=""
+                width="300px"
+              />
+              <p className="mt-[-90px]">You’ve created your music NFT</p>
+            </div>
+          }
           </div>
-        </div>
-      </div>
       <div className="flex items-center justify-center mt-12 ">
         <button
           className="flex items-center px-4 py-2 border border-[#E1E1E1] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 mr-8 text-[#4B4B4B]"
-          onClick={() => setStep(2)}
+          onClick={() => setStep(4)}
         >
           <IoIosArrowBack className="mr-2" /> Back
         </button>
-        <button
-            className="px-4 py-2 border border-[#E1E1E1
-  ] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 w-[160px] text-[#4B4B4B]"
-            onClick={() => createAccessToken()}
-          >
-            Next
-          </button>
+        {tx
+          ? <button
+              className="px-4 py-2 border border-[#E1E1E1
+    ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
+              
+            >
+              Go to Dashboard
+            </button>
+          : <button
+              className="px-4 py-2 border border-[#E1E1E1
+    ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
+              onClick={() => createAccessToken()}
+            >
+              Deploy contract
+            </button>
+          }
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import AddCover from "../components/musician/create-music-nft/AddCover";
 import AddDetails from "../components/musician/create-music-nft/AddDetails";
 import PreviewDetails from "../components/musician/create-music-nft/PreviewDetails";
 import Pricing from "../components/musician/create-music-nft/Pricing";
-import { EVM_ADDRESS, EVM_ABI } from "../EVMcontract";
+import { EVM_ADDRESS, EVM_ABI, Registry_ADDRESS, Registry_ABI, Account_ADDRESS } from "../EVMcontract";
 import { NFTStorageAPIKey } from "../../apikey";
 
 function CreateMusicNft() {
@@ -18,6 +18,7 @@ function CreateMusicNft() {
   const [mc, setMC] = useState();
   const [address, setAddress] = useState();
   const {sdk, connected, connecting, provider, chainId} = useSDK();
+  const [nftId, setnftId] = useState();
 
   const connect = async () => {
     try {
@@ -54,7 +55,19 @@ function CreateMusicNft() {
     const transaction = await mc.mint(address, url);
     const tx = await transaction.wait();
     console.log(tx);
+    console.log(tx.events[0]?.args?.tokenId?.toString());
+    setnftId(tx.events[0]?.args?.tokenId?.toString());
     setStep(5);
+  }
+
+  async function deployContract(){
+    const _provider = new ethers.providers.Web3Provider(provider);
+    const signer = _provider.getSigner();
+
+    const contract = new ethers.Contract(Registry_ADDRESS, Registry_ABI, signer);
+    const transaction = await contract.createAccount(Account_ADDRESS, "59140", EVM_ADDRESS, nftId, "1", "0x");
+    const tx = await transaction.wait();
+    return tx;
   }
 
   return (
@@ -64,7 +77,7 @@ function CreateMusicNft() {
       {step === 2 && <AddCover setStep={setStep} setImage={setImage} />}
       {step === 3 && <AddDetails setStep={setStep} image={image} name={name} setName={setName} description={description} setDescription={setDescription} storeNFT={storeNFT} connect={connect} mc={mc} />}
       {step === 4 && <PreviewDetails setStep={setStep} />}
-      {step === 5 && <Pricing setStep={setStep} />}
+      {step === 5 && <Pricing setStep={setStep} image={image} name={name} description={description} deployContract={deployContract} />}
     </div>
   );
 }
