@@ -8,7 +8,7 @@ import AddDetails from "../components/musician/create-music-nft/AddDetails";
 import PreviewDetails from "../components/musician/create-music-nft/PreviewDetails";
 import Pricing from "../components/musician/create-music-nft/Pricing";
 import { EVM_ADDRESS, EVM_ABI } from "../EVMcontract";
-
+import { NFTStorageAPIKey } from "../../apikey";
 
 function CreateMusicNft() {
   const [step, setStep] = useState(1);
@@ -36,7 +36,7 @@ function CreateMusicNft() {
 
   async function storeNFT() {
     // create a new NFTStorage client using our API key
-    const nftstorage = new NFTStorage({ token: "" });
+    const nftstorage = new NFTStorage({ token: NFTStorageAPIKey });
 
     // call client.store, passing in the image & metadata
     const result = await nftstorage.store({
@@ -54,6 +54,7 @@ function CreateMusicNft() {
     const transaction = await mc.mint(address, url);
     const tx = await transaction.wait();
     console.log(tx);
+    setStep(5);
   }
 
   return (
