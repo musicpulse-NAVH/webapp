@@ -434,8 +434,19 @@ export const EVM_ABI = [
     "constant": true
   }
 ];
-export const Registry_ADDRESS = "0xe7fAD83f64179695Da44b0cE18A24F1cBB890323";
+export const Registry_ADDRESS = "0xDaFE2F4b4c68C6059a0366E6346CBEE4d2D0892f";
 export const Registry_ABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
   {
     "inputs": [],
     "name": "InitializationFailed",
@@ -483,6 +494,45 @@ export const Registry_ABI = [
     ],
     "name": "AccountCreated",
     "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "nftid",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "date",
+        "type": "uint256"
+      }
+    ],
+    "name": "Purchased",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "token",
+    "outputs": [
+      {
+        "internalType": "contract AccessToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -567,10 +617,44 @@ export const Registry_ABI = [
     "stateMutability": "view",
     "type": "function",
     "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "salt",
+        "type": "uint256"
+      }
+    ],
+    "name": "purchaseAccessToken",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
   }
-]
+];
 
-export const Account_ADDRESS = "0x9c51cB485783b0DeFE189F73f6c9556B5E536E15";
+export const Account_ADDRESS = "0xd9B249D7E70D9BDae90015d8AA6EB760599a7147";
 export const Account_ABI = [
   {
     "inputs": [
