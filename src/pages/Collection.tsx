@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, SimpleGrid, Grid, Card, Stack, Box, Flex, Heading, IconButton, Input, Image, Text } from '@chakra-ui/react';
 import Sidebar from "../components/layout/Sidebar";
-import LineChart from "../components/LineChart";
 import { FiArrowRight } from "react-icons/fi";
 
 const DATA = [
@@ -33,10 +32,6 @@ function Collection() {
     <Flex>
       <Sidebar />
       <Container maxW='1000px' mt='3'>
-        <Box mb='3'>
-          <LineChart />
-        </Box>
-
         {DATA.map(d => (
           <Card key={d.id} p='3' mb='2'>
             <Grid templateColumns='2fr 2fr 2fr 1fr' gap={10} mt='3'>
