@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useSDK } from '@metamask/sdk-react';
 import { ethers } from 'ethers';
 import { Flex, Container, Card } from "@chakra-ui/react";
@@ -9,6 +10,7 @@ import LineChart from "../components/LineChart";
 import { Registry_ABI, Registry_ADDRESS, Account_ADDRESS, EVM_ADDRESS } from "../EVMcontract";
 
 function FanMusicDetail({ image }) {
+  const { id } = useParams();
   const {sdk, connected, connecting, provider, chainId} = useSDK();
 
   const connect = async () => {
@@ -27,7 +29,7 @@ function FanMusicDetail({ image }) {
 
     const contract = new ethers.Contract(Registry_ADDRESS, Registry_ABI, signer);
     const ethToWei = ethers.utils.parseUnits("0.003", 'ether');
-    const transaction = await contract.purchaseAccessToken(Account_ADDRESS, "59140", EVM_ADDRESS, "1", "1", { value: ethToWei });
+    const transaction = await contract.purchaseAccessToken(Account_ADDRESS, "59140", EVM_ADDRESS, id, "1", { value: ethToWei });
     const tx = await transaction.wait();
     console.log(tx);
   };

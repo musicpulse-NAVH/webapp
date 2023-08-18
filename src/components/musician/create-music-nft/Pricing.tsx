@@ -6,7 +6,7 @@ import cover from "../../../public/assets/cover.png";
 import Success from "../../../public/assets/success.png";
 import { IoIosArrowBack } from "react-icons/io";
 
-function Pricing({ setStep, image, name, description, deployContract}: any) {
+function Pricing({ setStep, image, name, description, deployContract, nftId}: any) {
   const change = useNavigate();
   const [tx, setTx] = useState(null);
 
@@ -85,7 +85,7 @@ function Pricing({ setStep, image, name, description, deployContract}: any) {
           ? <button
               className="px-4 py-2 border border-[#E1E1E1
     ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
-              onClick={() => change("/musicdetail")}
+              onClick={() => change(`/musicdetail/${nftId}`)}
             >
               Go to Dashboard
             </button>

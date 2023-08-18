@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Fans />} />
-        <Route path="/musicdetail" element={<FanMusicDetail />} />
+        <Route path="/musicdetail/:id" element={<FanMusicDetail />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/create" element={<CreateMusicNft />} />
         {/* <Route path="/" element={<h1>Home</h1>} /> */}

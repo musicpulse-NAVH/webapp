@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSDK } from '@metamask/sdk-react';
+import { ethers } from 'ethers';
 import { useNavigate } from "react-router-dom";
 import { Container, SimpleGrid, Center, IconButton, Stack, Box, Flex, Heading, Spacer, Input, Image, Text } from '@chakra-ui/react';
 import Sidebar from "../components/layout/Sidebar";
 import { HiOutlineFilter, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Cover from "../public/assets/examplecover.png";
+import {EVM_ABI, EVM_ADDRESS } from "../EVMcontract";
 
 const DATA = [
   {
@@ -34,6 +37,38 @@ const DATA = [
 
 function Fans() {
   const change = useNavigate();
+  const {sdk, connected, connecting, provider, chainId} = useSDK();
+
+  const [songs, setSongs] = useState([]);
+
+  useEffect(() => {
+    connect()
+  }, [])
+  
+
+  const connect = async () => {
+    try {
+      const _provider = new ethers.providers.Web3Provider(provider);
+      const signer = _provider.getSigner();
+
+      const contract = new ethers.Contract(EVM_ADDRESS, EVM_ABI, signer);
+      const musics = await contract.getMusicURLList();
+      let newMusic = [];
+      for(let m of musics){
+        const cid = m.slice(7, 66);
+
+        const response = await fetch(`https://nftstorage.link/ipfs/${cid}/metadata.json`);
+        let data = await response.json();
+        data.id = newMusic.length;
+        let imageCid = data.image.slice(7);
+        data.image = `https://nftstorage.link/ipfs/${imageCid}`;
+        newMusic.push(data);
+      }
+      setSongs(newMusic);
+    } catch(err) {
+      console.warn(`failed to connect..`, err);
+    }
+  };
 
   return (
     <Flex>
@@ -72,12 +107,12 @@ function Fans() {
         </Flex>
 
         <SimpleGrid columns={3} spacing={10}>
-          {DATA.map(d => (
-            <Flex mt='3' key={d.id} onClick={() => change("/musicdetail")}>
+          {songs.map(d => (
+            <Flex mt='3' key={d.id} cursor="pointer" onClick={() => change(`/musicdetail/${d.id}`)}>
               <Image
                 width="100px"
                 height="100px"
-                src={d.cover}
+                src={d.image}
                 alt='Cover'
                 mr='3'
                 p='1'
@@ -92,10 +127,10 @@ function Fans() {
                     {d.name}
                   </Text>
                   <Heading size='sm' mb='2' mt='2'>
-                    {d.title}
+                    {d.description}
                   </Heading>
                   <Text fontSize='xs' color='#8E8E8E'>
-                    {d.mints} mints • Ends in {d.timeLeft}h
+                    0 mints • Ends in 48 h
                   </Text>
                 </Box>
               </Stack>

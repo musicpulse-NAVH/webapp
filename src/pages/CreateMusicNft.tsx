@@ -72,12 +72,11 @@ function CreateMusicNft() {
 
   return (
     <div className="">
-      <p>{address}</p>
       {step === 1 && <Upload setStep={setStep} step={step} />}
       {step === 2 && <AddCover setStep={setStep} setImage={setImage} />}
       {step === 3 && <AddDetails setStep={setStep} image={image} name={name} setName={setName} description={description} setDescription={setDescription} storeNFT={storeNFT} connect={connect} mc={mc} />}
       {step === 4 && <PreviewDetails setStep={setStep} />}
-      {step === 5 && <Pricing setStep={setStep} image={image} name={name} description={description} deployContract={deployContract} />}
+      {step === 5 && <Pricing setStep={setStep} image={image} name={name} description={description} deployContract={deployContract} nftId={nftId} />}
     </div>
   );
 }
