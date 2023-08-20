@@ -1,3 +1,7 @@
+TO DOs
+- Work on the aesthetics(match the design)
+- when minting add a confirmation or a toast
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
