@@ -4,7 +4,7 @@ import Disc from "../../../public/assets/disc.png";
 import Vector from "../../../public/assets/Vector.png";
 import { IoIosArrowBack } from "react-icons/io";
 
-function AddCover({ setStep, step, setImage }: any) {
+function AddCover({ setStep, setImage }: any) {
   const saveFile = async (event) => {
     const image = event.target.files[0];
     setImage(image);

@@ -18,7 +18,7 @@ function Upload({ setStep, step }: any) {
   // };
 
   const saveFile = async () => {
-    setStep(2);
+    setStep();
   };
 
   // const encrypt = async () => {
@@ -42,7 +42,7 @@ function Upload({ setStep, step }: any) {
   //   ];
 
   //   const message = "Test"
-    
+
   //   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
   //   const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(message);
 
@@ -68,7 +68,7 @@ function Upload({ setStep, step }: any) {
       </Text>
       <div className="pt-24 flex items-center justify-center">
         <div className="relative w-[427px] h-[427px] border-4 border-dashed rounded-full">
-          
+
           <img
             src={icon}
             alt="icon image"
