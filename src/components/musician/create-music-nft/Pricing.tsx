@@ -14,25 +14,37 @@ function Pricing({
   description,
   deployContract,
   nftId,
+  createToken
 }: any) {
   const change = useNavigate()
   const [tx, setTx] = useState(null)
+  const [tx2, setTx2] = useState(null)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
-
-  const openPopup = () => {
-    setIsPopupOpen(true)
-    createAccessToken()
-  }
 
   const closePopup = () => {
     setIsPopupOpen(false)
   }
 
-  const createAccessToken = async () => {
-    const result = await deployContract()
-    if (result) {
-      setTx(result)
+  const deployTBAContract = async () => {
+    try {
+      setIsPopupOpen(true)
+      const result = await deployContract()
+      if (result) {
+        setTx(result)
+      }
+      closePopup();
+    } catch (error) {
+      closePopup();
     }
+   
+  }
+
+  const createAccessToken = async () => {
+    const result = await createToken()
+    if (result) {
+      setTx2(result)
+    }
+    closePopup();
   }
 
   return (
@@ -85,7 +97,7 @@ function Pricing({
           </div>
         </div>
 
-        {!tx ? (
+        {!tx && !tx2 ? (
           <div className="w-full px-12">
             <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px]">
               Pricing
@@ -100,7 +112,7 @@ function Pricing({
         ) : (
           <div className="w-full px-12">
             <img src={Success} alt="icon image" className="" width="300px" />
-            <p className="mt-[-90px]">You’ve created your music NFT</p>
+            <p className="mt-[-90px]">You’ve created your music NFT and licensing plans.</p>
           </div>
         )}
       </div>
@@ -111,7 +123,7 @@ function Pricing({
         >
           <IoIosArrowBack className="mr-2" /> Back
         </button>
-        {tx ? (
+        {tx && tx2 ? (
           <button
             className="px-4 py-2 border border-[#E1E1E1
     ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
@@ -119,12 +131,23 @@ function Pricing({
           >
             Go to Dashboard
           </button>
-        ) : (
+        ) : tx 
+          ? (
           <button
             className="px-4 py-2 border border-[#E1E1E1
     ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
             // onClick={() => createAccessToken()}
-            onClick={openPopup}
+            onClick={createAccessToken}
+          >
+            Create access token
+          </button>
+        ):
+        (
+          <button
+            className="px-4 py-2 border border-[#E1E1E1
+    ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
+            // onClick={() => createAccessToken()}
+            onClick={deployTBAContract}
           >
             Convert to TBA
           </button>
