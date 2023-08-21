@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSDK } from '@metamask/sdk-react'
 import { ethers } from 'ethers'
@@ -13,12 +13,24 @@ import {
   Registry_ADDRESS,
   Account_ADDRESS,
   EVM_ADDRESS,
+  EVM_ABI
 } from '../EVMcontract'
 
 function FanMusicDetail({ image }) {
   const { id } = useParams()
   const [tx, setTx] = useState(null)
+  const [data, setData] = useState({})
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [musicURL, setMusicURL] = useState("")
+
+  useEffect(() => {
+    connect()
+  }, [])
+
+  useEffect(() => {
+    getURLMusic()
+  }, [])
+  
 
   const openPopup = () => {
     setIsPopupOpen(true)
@@ -30,14 +42,38 @@ function FanMusicDetail({ image }) {
 
   const { sdk, connected, connecting, provider, chainId } = useSDK()
 
+  
   const connect = async () => {
     try {
-      const _provider = new ethers.providers.Web3Provider(provider)
-      const signer = _provider.getSigner()
-    } catch (err) {
-      console.warn(`failed to connect..`, err)
+      const _provider = new ethers.providers.Web3Provider(provider);
+      const signer = _provider.getSigner();
+      const contract = new ethers.Contract(EVM_ADDRESS, EVM_ABI, signer);
+      const musicURL = await contract.musicURLList(id);
+      const cid = musicURL.slice(7, 66);
+
+      const response = await fetch(`https://nftstorage.link/ipfs/${cid}/metadata.json`);
+      let mdata = await response.json();
+      console.log(mdata)
+      let imageCid = mdata.image.slice(7);
+      mdata.image = `https://nftstorage.link/ipfs/${imageCid}`;
+      setData(mdata);
+    } catch(err) {
+      console.warn(`failed to connect..`, err);
     }
-  }
+  };
+
+  const getURLMusic = async () => {
+    try {
+      const _provider = new ethers.providers.Web3Provider(provider);
+      const signer = _provider.getSigner();
+
+      const contract = new ethers.Contract(Registry_ADDRESS, Registry_ABI, signer)
+      const url = await contract.getURL(Account_ADDRESS, "59140", EVM_ADDRESS, id, "1");
+      setMusicURL(url)
+    } catch(err) {
+      console.warn(`failed to connect..`, err);
+    }
+  };
 
   const subscribe = async () => {
     openPopup()
@@ -57,6 +93,7 @@ function FanMusicDetail({ image }) {
     const tx = await transaction.wait()
     setTx(tx)
     console.log(tx)
+    getURLMusic();
   }
 
   return (
@@ -79,9 +116,9 @@ function FanMusicDetail({ image }) {
                 className="absolute inset-0 m-auto ml-[130px] z-[-10] mb-4"
                 width="260px"
               />
-              {image ? (
+              {data.image ? (
                 <img
-                  src={URL.createObjectURL(image)}
+                  src={data.image}
                   alt="icon image"
                   className="absolute inset-0 m-auto w-full h-full object-cover mt-[10px] bg-black"
                 />
@@ -94,15 +131,15 @@ function FanMusicDetail({ image }) {
               )}
             </div>
             <div>
-              <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px]">
+              <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px] mt-5">
                 Name
               </h3>
-              <p className="rounded-md  mt-4">Name</p>
+              <p className="rounded-md  mt-4">{data.name}</p>
 
               <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px] mt-8">
                 Description
               </h3>
-              <p className="rounded-md  mt-4">Description</p>
+              <p className="rounded-md  mt-4">{data.description}</p>
             </div>
           </div>
 
@@ -121,20 +158,21 @@ function FanMusicDetail({ image }) {
             </Card>
             {connected ? (
               <div className="mt-8">
-                <button
+                {!musicURL ? <button
                   className="border border-[#4B4B4B
                   ] w-full px-4 py-2 text-black rounded-lg hover:bg-black hover:text-white m-2"
                   onClick={() => subscribe()}
                 >
                   Purchase token for licensing
                 </button>
+                :
                 <button
                   className="border border-[#4B4B4B
                   ] w-full px-4 py-2 text-black rounded-lg hover:bg-black hover:text-white m-2"
-                  onClick={() => subscribe()}
+                  onClick={() => window.open(musicURL, '_blank')}
                 >
                   Decrypt and download
-                </button>
+                </button>}
               </div>
             ) : (
               <button

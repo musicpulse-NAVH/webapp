@@ -29,7 +29,7 @@ function Upload({ setStep, step, nftId, uploadMusic }: any) {
     console.log(image.name);
     setImg(image);
     setName(image.name);
-    setUrl('https://bafkreig7ng7ct7u4un2zc52jzkjge5pgs7c4yoymq3np2yhfn3bfsphovu.ipfs.nftstorage.link/');
+    setUrl('https://bafybeid2yogk5vt3jghzmofsydffl4a5ilmbk5tkgtqqqvsraxshqm362a.ipfs.nftstorage.link/');
   };
 
   const closePopup = () => {
@@ -96,7 +96,7 @@ function Upload({ setStep, step, nftId, uploadMusic }: any) {
         Create Music NFT
       </Text>
       <Popup
-        title="Creating Contract"
+        title="Uploading"
         isOpen={isPopupOpen}
         onClose={closePopup}
         tx={tx}

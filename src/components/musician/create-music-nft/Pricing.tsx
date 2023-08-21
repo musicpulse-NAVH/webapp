@@ -97,7 +97,7 @@ function Pricing({
           </div>
         </div>
 
-        {!tx && !tx2 ? (
+        {!tx2 ? (
           <div className="w-full px-12">
             <h3 className="block text-[32px] text-[#1F1F1F] leading-[24px]">
               Pricing

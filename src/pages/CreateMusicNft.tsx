@@ -95,7 +95,6 @@ function CreateMusicNft() {
     const signer = _provider.getSigner()
 
     const contract = new ethers.Contract(Registry_ADDRESS, Registry_ABI, signer)
-    console.log(url)
     const transaction2 = await contract.setURL(Account_ADDRESS, "59140", EVM_ADDRESS, nftId, "1", url);
     const tx2 = await transaction2.wait();
     return tx2;
