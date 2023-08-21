@@ -1,4 +1,4 @@
-export const EVM_ADDRESS = "0x6f38EcF667ccD505426d8c24E6cc242bf90b68B0";
+export const EVM_ADDRESS = "0xD8cadc88384C4dF5e847C20660e789C21AA41D92";
 // export const EVM_ADDRESS = "0xe7fAD83f64179695Da44b0cE18A24F1cBB890323";
 export const EVM_ABI = [
   {
@@ -435,7 +435,7 @@ export const EVM_ABI = [
     "constant": true
   }
 ];
-export const Registry_ADDRESS = "0x26E5e8c0e2856301eA52414234EF1f35d915e8F0";
+export const Registry_ADDRESS = "0x90918Ce681d950C8F91Fd97105db536d59a88a10";
 // export const Registry_ADDRESS = "0x0845dD86bF0c3044391BAFF5618dB6a247407F81";
 export const Registry_ABI = [
   {
@@ -708,6 +708,84 @@ export const Registry_ABI = [
         "internalType": "uint256",
         "name": "salt",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "url",
+        "type": "string"
+      }
+    ],
+    "name": "setURL",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "salt",
+        "type": "uint256"
+      }
+    ],
+    "name": "getURL",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "salt",
+        "type": "uint256"
       }
     ],
     "name": "purchaseAccessToken",
@@ -718,7 +796,7 @@ export const Registry_ABI = [
   }
 ];
 
-export const Account_ADDRESS = "0x058686E6D8D0cbc38946674c1A4C9ca1A91D869C";
+export const Account_ADDRESS = "0x4769a6B357B7ec0a4cC4Dd034ee33EE31451D019";
 // export const Account_ADDRESS = "0x5E03a81C51237eEaDBCBA93B0755cFC0eB6AAA89";
 export const Account_ABI = [
   {

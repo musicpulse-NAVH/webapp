@@ -127,9 +127,9 @@ function Pricing({
           <button
             className="px-4 py-2 border border-[#E1E1E1
     ] rounded hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 bg-[#4B4B4B] text-white w-[160px]"
-            onClick={() => change(`/musicdetail/${nftId}`)}
+            onClick={() => setStep(7)}
           >
-            Go to Dashboard
+            Upload media file
           </button>
         ) : tx 
           ? (

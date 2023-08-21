@@ -90,6 +90,17 @@ function CreateMusicNft() {
     return tx2;
   }
 
+  async function uploadMusic(url) {
+    const _provider = new ethers.providers.Web3Provider(provider)
+    const signer = _provider.getSigner()
+
+    const contract = new ethers.Contract(Registry_ADDRESS, Registry_ABI, signer)
+    console.log(url)
+    const transaction2 = await contract.setURL(Account_ADDRESS, "59140", EVM_ADDRESS, nftId, "1", url);
+    const tx2 = await transaction2.wait();
+    return tx2;
+  }
+
   return (
     <div className="">
       {step === 2 && <AddCover setStep={setStep} setImage={setImage} />}
@@ -119,7 +130,7 @@ function CreateMusicNft() {
           createToken={createToken}
         />
       )}
-      {step === 7 && <Upload setStep={setStep} step={step} />}
+      {step === 7 && <Upload setStep={setStep} step={step} nftId={nftId} uploadMusic={uploadMusic} />}
     </div>
   )
 }
