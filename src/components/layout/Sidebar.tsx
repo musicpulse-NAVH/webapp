@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Container, GridItem, InputGroup, Stack, Box, Flex, Heading, Input, InputRightElement, Image, Text } from '@chakra-ui/react';
 import { HiSearch } from "react-icons/hi";
@@ -13,12 +14,13 @@ const DATA = [
 
 function Sidebar() {
   const changePage = useNavigate();
+  const [search, setSearch] = useState("");
 
   return (
     <GridItem rowSpan={2} colSpan={1} bg='#FAFAFA' width="300px" height="800px">
       <Container>
         <InputGroup bg='white' mt='4'>
-          <Input placeholder='Search' />
+          <Input placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
           <InputRightElement>
             <HiSearch />
           </InputRightElement>

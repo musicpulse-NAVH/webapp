@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSDK } from '@metamask/sdk-react';
 import { ethers } from 'ethers';
 import { useNavigate } from "react-router-dom";
-import { Container, SimpleGrid, Center, IconButton, Stack, Box, Flex, Heading, Spacer, Input, Image, Text } from '@chakra-ui/react';
+import { Container, SimpleGrid, Center, IconButton, Stack, Box, Flex, Heading, Skeleton, Spacer, Input, Image, Text } from '@chakra-ui/react';
 import Sidebar from "../components/layout/Sidebar";
 import { HiOutlineFilter, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Cover from "../public/assets/examplecover.png";
@@ -42,8 +42,8 @@ function Fans() {
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
-    connect()
-  }, [])
+    if(connected) connect()
+  }, [connected])
   
 
   const connect = async () => {
@@ -137,7 +137,15 @@ function Fans() {
             </Flex>
           ))}
         </SimpleGrid>
+        {!connected && <Text mt="5" align="center" fontSize="2xl">Please connect to your wallet</Text>}
       </Container>
+
+      <SimpleGrid columns={3} spacing={10}>
+        <Skeleton height='20px' />
+        <Skeleton height='20px' />
+        <Skeleton height='20px' />
+        <Skeleton height='20px' />
+      </SimpleGrid>
 
 
     </Flex>

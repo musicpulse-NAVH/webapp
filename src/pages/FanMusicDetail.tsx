@@ -81,7 +81,7 @@ function FanMusicDetail({ image }) {
     const signer = _provider.getSigner()
 
     const contract = new ethers.Contract(Registry_ADDRESS, Registry_ABI, signer)
-    const ethToWei = ethers.utils.parseUnits('0.003', 'ether')
+    const ethToWei = ethers.utils.parseUnits('0.03', 'ether')
     const transaction = await contract.purchaseAccessToken(
       Account_ADDRESS,
       '59140',
@@ -158,21 +158,21 @@ function FanMusicDetail({ image }) {
             </Card>
             {connected ? (
               <div className="mt-8">
-                {!musicURL ? <button
+                <button
                   className="border border-[#4B4B4B
-                  ] w-full px-4 py-2 text-black rounded-lg hover:bg-black hover:text-white m-2"
+                  ] w-full px-4 py-2 text-black rounded-lg hover:bg-black hover:text-white m-2 disabled:text-gray-300"
                   onClick={() => subscribe()}
+                  disabled={musicURL !== ""}
                 >
                   Purchase token for licensing
                 </button>
-                :
                 <button
                   className="border border-[#4B4B4B
                   ] w-full px-4 py-2 text-black rounded-lg hover:bg-black hover:text-white m-2"
                   onClick={() => window.open(musicURL, '_blank')}
                 >
                   Decrypt and download
-                </button>}
+                </button>
               </div>
             ) : (
               <button
