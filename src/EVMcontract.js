@@ -1,4 +1,5 @@
-export const EVM_ADDRESS = "0x63E4f6643B92b16b90497c50cAB53523dcB4D126";
+export const EVM_ADDRESS = "0xD8cadc88384C4dF5e847C20660e789C21AA41D92";
+// export const EVM_ADDRESS = "0xe7fAD83f64179695Da44b0cE18A24F1cBB890323";
 export const EVM_ABI = [
   {
     "inputs": [],
@@ -434,23 +435,32 @@ export const EVM_ABI = [
     "constant": true
   }
 ];
-export const Registry_ADDRESS = "0xDaFE2F4b4c68C6059a0366E6346CBEE4d2D0892f";
+export const Registry_ADDRESS = "0x90918Ce681d950C8F91Fd97105db536d59a88a10";
+// export const Registry_ADDRESS = "0x0845dD86bF0c3044391BAFF5618dB6a247407F81";
 export const Registry_ABI = [
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "tokenAddress",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
   {
     "inputs": [],
     "name": "InitializationFailed",
     "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "nftcontract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "accesstokencontract",
+        "type": "address"
+      }
+    ],
+    "name": "AccessTokenCreated",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -519,6 +529,26 @@ export const Registry_ABI = [
     ],
     "name": "Purchased",
     "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "tba_to_erc20",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -646,6 +676,118 @@ export const Registry_ABI = [
         "type": "uint256"
       }
     ],
+    "name": "createAccessToken",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "salt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "url",
+        "type": "string"
+      }
+    ],
+    "name": "setURL",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "salt",
+        "type": "uint256"
+      }
+    ],
+    "name": "getURL",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "salt",
+        "type": "uint256"
+      }
+    ],
     "name": "purchaseAccessToken",
     "outputs": [],
     "stateMutability": "payable",
@@ -654,7 +796,8 @@ export const Registry_ABI = [
   }
 ];
 
-export const Account_ADDRESS = "0xd9B249D7E70D9BDae90015d8AA6EB760599a7147";
+export const Account_ADDRESS = "0x4769a6B357B7ec0a4cC4Dd034ee33EE31451D019";
+// export const Account_ADDRESS = "0x5E03a81C51237eEaDBCBA93B0755cFC0eB6AAA89";
 export const Account_ABI = [
   {
     "inputs": [

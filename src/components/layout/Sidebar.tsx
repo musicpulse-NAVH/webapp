@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Container, GridItem, InputGroup, Stack, Box, Flex, Heading, Input, InputRightElement, Image, Text } from '@chakra-ui/react';
 import { HiSearch } from "react-icons/hi";
@@ -8,23 +9,18 @@ const DATA = [
     name: "Sadye",
     title: "TONGUE TIED",
     cover: "https://images.unsplash.com/photo-1619983081593-e2ba5b543168?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWxidW0lMjBjb3ZlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    id: 2,
-    name: "Sadye",
-    title: "Otro Ambie",
-    cover: "https://images.unsplash.com/photo-1619983081593-e2ba5b543168?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWxidW0lMjBjb3ZlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
   }
 ]
 
 function Sidebar() {
   const changePage = useNavigate();
+  const [search, setSearch] = useState("");
 
   return (
     <GridItem rowSpan={2} colSpan={1} bg='#FAFAFA' width="300px" height="800px">
       <Container>
         <InputGroup bg='white' mt='4'>
-          <Input placeholder='Search' />
+          <Input placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>
           <InputRightElement>
             <HiSearch />
           </InputRightElement>
