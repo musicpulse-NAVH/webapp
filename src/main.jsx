@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { MetaMaskProvider } from '@metamask/sdk-react';
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { THIRD_CLIENT_ID } from '../apikey.js';
 import App from './App.jsx';
 import './index.css';
 
@@ -39,7 +41,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             url: window.location.host,
           }
       }}>
-        <App />
+        <ThirdwebProvider
+          clientId={THIRD_CLIENT_ID} // You can get a client id from dashboard settings
+          activeChain="goerli"
+          >
+            <App />
+        </ThirdwebProvider>
       </MetaMaskProvider>
       
     </ChakraProvider>

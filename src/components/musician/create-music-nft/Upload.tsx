@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Box, Text, Container, Image, Center } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
+import { useStorageUpload } from "@thirdweb-dev/react";
 import icon from "../../../public/assets/icon_upload.png";
 import { IoIosArrowBack } from "react-icons/io";
 import Popup from '../../share/Popup'
 
 function Upload({ setStep, step, nftId, uploadMusic }: any) {
   const change = useNavigate()
+  const { mutateAsync: upload } = useStorageUpload();
 
   const [name, setName] = useState('')
   const [img, setImg] = useState()
   const [url, setUrl] = useState('')
   const [tx, setTx] = useState(null)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [load, setLoad] = useState(false);
 
   const connectLitNetwork = async () => {
     const client = new LitJsSdk.LitNodeClient();
@@ -25,11 +28,24 @@ function Upload({ setStep, step, nftId, uploadMusic }: any) {
   };
 
   const saveFile = async (event) => {
-    const image = event.target.files[0];
-    console.log(image.name);
-    setImg(image);
-    setName(image.name);
-    setUrl('https://bafybeid2yogk5vt3jghzmofsydffl4a5ilmbk5tkgtqqqvsraxshqm362a.ipfs.nftstorage.link/');
+    try{
+      setLoad(true);
+      const image = event.target.files[0];
+      console.log(image);
+      setImg(image);
+      setName(image.name);
+      const uploadUrl = await upload({
+        data: [image],
+        options: { uploadWithGatewayUrl: true, uploadWithoutDirectory: true },
+      });
+      console.log(uploadUrl)
+      setUrl(upload[0]);
+      setLoad(false);
+    } catch (error) {
+      console.log(error)
+      closePopup();
+      setLoad(false);
+    }
   };
 
   const closePopup = () => {
@@ -138,12 +154,12 @@ function Upload({ setStep, step, nftId, uploadMusic }: any) {
             Go to Dashboard
           </button>
         ): <button
-          className="px-4 py-2 border border-[#E1E1E1
-] rounded hover:bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 w-[160px] text-[#4B4B4B]"
+          className="bg-[#4B4B4B] text-white px-4 py-2 border border-[#E1E1E1
+] rounded hover:bg-gray-100 hover:text-black focus:outline-none focus:ring focus:border-blue-300 w-[160px] text-[#4B4B4B] disabled:bg-gray-300"
           onClick={uploadToContract}
-          disabled={!url}
+          disabled={!url || load}
         >
-          Upload
+          {load ? "Wait...":  "Upload"}
         </button>}
       </div>
     </div>

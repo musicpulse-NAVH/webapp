@@ -106,9 +106,9 @@ function Fans() {
           </Flex>
         </Flex>
 
-        <SimpleGrid columns={3} spacing={10}>
+        <SimpleGrid columns={3} spacing={10}  mt='3' >
           {songs.map(d => (
-            <Flex mt='3' key={d.id} cursor="pointer" onClick={() => change(`/musicdetail/${d.id}`)}>
+            <Flex key={d.id} cursor="pointer" onClick={() => change(`/musicdetail/${d.id}`)}>
               <Image
                 width="100px"
                 height="100px"

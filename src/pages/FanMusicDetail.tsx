@@ -96,6 +96,24 @@ function FanMusicDetail({ image }) {
     getURLMusic();
   }
 
+  const handleDownload = async () => {
+    try {
+      const musicUrl = musicURL;
+      const response = await fetch(musicUrl);
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'music.mp3'); // Customize the filename
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading music:', error);
+    }
+  };
+
   return (
     <Flex>
       <Sidebar />
@@ -169,7 +187,7 @@ function FanMusicDetail({ image }) {
                 <button
                   className="border border-[#4B4B4B
                   ] w-full px-4 py-2 text-black rounded-lg hover:bg-black hover:text-white m-2"
-                  onClick={() => window.open(musicURL, '_blank')}
+                  onClick={handleDownload}
                 >
                   Decrypt and download
                 </button>
